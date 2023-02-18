@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<style>
+    *{
+     font-family: 'SCRUBLAND';
+    src: url('SCRUBLAND.ttf') format('ttf'),
+
+    }
+    body {
+    background-image: url("https://img.freepik.com/premium-photo/seamless-texture-white-crumpled-paper-background_153912-519.jpg?w=2000");
+    }
+</style>
+
+<br>
+<center>
+    <h1>Game Transaction Details</h1>
+
+    <H1>Id Purchase : [[${data.getIdCart()}]]</H1>
+
+
+    <hr/><br/>
+    <p><b>Title Game  : [[${data.getGameList().get(0).getTitle()}]]</b></p>
+    <p><b>Price  : [[${data.getGameList().get(0).getPrice()}]]</b></p>
+    <br>
+    <hr/>
+
+</center>
+
+
+
+
+
+
+</body>
+
+</html>
