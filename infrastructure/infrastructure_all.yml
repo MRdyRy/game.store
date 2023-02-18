@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./db:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ${GLOBAL_NETWORK:-gamestore}
+
+  keycloak:
+    depends_on:
+      - postgres
+    container_name: keycloak
+    environment:
+      DB_VENDOR: postgres
+      DB_ADDR: postgres
+      DB_DATABASE: postgres
+      DB_USER: ${POSTGRES_USER_CREDENTIAL}
+      DB_PASSWORD: ${POSTGRES_PASSWORD_CREDENTIAL}
+    image: jboss/keycloak:${KEYCLOACK_VERSION}
+    ports:
+      - "28080:8080"
+    restart: on-failure
+    networks:
+      - ${GLOBAL_NETWORK:-gamestore}
+
+  cache:
+    container_name: redis_gamestore
+    environment:
+      REDIS_HOST: cache
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: password
+    image: redis:6.2-alpine
+    ports:
+      - "6379:6379"
+    restart: on-failure
+    networks:
+      - ${GLOBAL_NETWORK:-gamestore}

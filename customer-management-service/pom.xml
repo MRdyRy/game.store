@@ -42,10 +42,6 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>com.rudy.ryanto</groupId>
-            <artifactId>merchant-service</artifactId>
-        </dependency>
-        <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>${version.codec}</version>

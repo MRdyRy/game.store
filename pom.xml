@@ -8,9 +8,9 @@
 		<module>report-service</module>
 		<module>customer-management-service</module>
 		<module>payment-service</module>
-		<module>login-service</module>
-		<module>transaction-management-service</module>
-		<module>auth-service</module>
+		<module>game-purchase-service</module>
+		<module>game-product-service</module>
+		<module>customer-login-service</module>
 	</modules>
 
 	<parent>
