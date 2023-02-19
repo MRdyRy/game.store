@@ -43,7 +43,17 @@
 			</dependency>
 			<dependency>
 				<groupId>com.rudy.ryanto</groupId>
-				<artifactId>merchant-service</artifactId>
+				<artifactId>customer-login-service</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.rudy.ryanto</groupId>
+				<artifactId>game-purchase-service</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.rudy.ryanto</groupId>
+				<artifactId>game-product-service</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

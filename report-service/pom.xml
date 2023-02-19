@@ -58,10 +58,6 @@
             <version>${version.thymeleaf}</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>com.rudy.ryanto</groupId>
-            <artifactId>merchant-service</artifactId>
-        </dependency>
 
     </dependencies>
 

@@ -43,3 +43,14 @@ services:
     restart: on-failure
     networks:
       - ${GLOBAL_NETWORK:-gamestore}
+
+  report-service:
+    container_name: report-service
+    build:
+      context: ../report-service
+      dockerfile: Dockerfile
+    image: report-service:latest
+    ports:
+      - 9050:9050
+    networks:
+      - ${GLOBAL_NETWORK:-gamestore}
