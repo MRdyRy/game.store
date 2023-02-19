@@ -3,6 +3,7 @@ package com.rudy.ryanto.customer.login.service;
 import com.rudy.ryanto.user.management.domain.CustomerDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,11 @@ public class CustomerLoginService {
     @Autowired
     RestTemplate restTemplate;
 
+    @Value("${customer.management.host:localhost:9070/api/customer}")
     private String customerHostUrl;
+    @Value("${signup.endpoint:/save}")
     private String createCustomerEndpoint;
+    @Value("${signup.endpoint:/login}")
     private String loginEndpoint;
 
     public ResponseEntity<CustomerDto> createNewUser(CustomerDto customerDto) {
