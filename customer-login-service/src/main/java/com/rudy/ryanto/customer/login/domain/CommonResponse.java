@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @Setter
 @Getter
-public class ResponseLogin {
+public class CommonResponse {
     private String statusCode;
     private String desc;
     private CustomerDto data;

@@ -1,6 +1,6 @@
 package com.rudy.ryanto.customer.login.controller;
 
-import com.rudy.ryanto.customer.login.domain.ResponseLogin;
+import com.rudy.ryanto.customer.login.domain.CommonResponse;
 import com.rudy.ryanto.customer.login.service.CustomerLoginService;
 import com.rudy.ryanto.user.management.domain.CustomerDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +19,9 @@ public class CustomerLoginController {
     CustomerLoginService customerLoginService;
 
     @PostMapping(value = "/v1/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseLogin> signup(@RequestBody CustomerDto customerDto) {
+    public ResponseEntity<CommonResponse> signup(@RequestBody CustomerDto customerDto) {
         var response = customerLoginService.createNewUser(customerDto);
-        return ResponseEntity.ok(ResponseLogin.builder()
+        return ResponseEntity.ok(CommonResponse.builder()
                 .statusCode(String.valueOf(response.getStatusCode().value()))
                 .desc(response.getStatusCode().getReasonPhrase())
                 .data(response.getBody())
@@ -29,9 +29,9 @@ public class CustomerLoginController {
     }
 
     @PostMapping(value = "/v1/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseLogin> login(@RequestBody CustomerDto customerDto) {
+    public ResponseEntity<CommonResponse> login(@RequestBody CustomerDto customerDto) {
         var response = customerLoginService.createNewUser(customerDto);
-        return ResponseEntity.ok(ResponseLogin.builder()
+        return ResponseEntity.ok(CommonResponse.builder()
                 .statusCode(String.valueOf(response.getStatusCode().value()))
                 .desc(response.getStatusCode().getReasonPhrase())
                 .data(response.getBody())
