@@ -7,6 +7,8 @@ teknologi stack: <br/>
 - kafka
 - zookeeper
 - keycloak
+- elasticsearch
+- zipkin
 - docker
 - docker-compose
 
