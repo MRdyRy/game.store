@@ -27,7 +27,7 @@ services:
     image: jboss/keycloak:${KEYCLOACK_VERSION}
     ports:
       - "28080:8080"
-    restart: always
+    restart: on-failure
     networks:
       - ${GLOBAL_NETWORK:-gamestore}
 
