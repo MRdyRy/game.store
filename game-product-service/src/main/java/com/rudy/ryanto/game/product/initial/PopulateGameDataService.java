@@ -3,7 +3,6 @@ package com.rudy.ryanto.game.product.initial;
 import com.rudy.ryanto.game.product.domain.GameDto;
 import com.rudy.ryanto.game.product.domain.GameProduct;
 import com.rudy.ryanto.game.product.repository.GameProductRepository;
-import com.rudy.ryanto.game.product.service.GameProductService;
 import com.rudy.ryanto.game.product.util.MapperGameDtoToGameProduct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
