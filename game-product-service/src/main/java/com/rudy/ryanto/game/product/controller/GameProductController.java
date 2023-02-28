@@ -1,7 +1,7 @@
 package com.rudy.ryanto.game.product.controller;
 
-import com.rudy.ryanto.game.product.domain.GameDto;
-import com.rudy.ryanto.game.product.domain.GameProduct;
+import com.rudy.ryanto.game.product.dto.GameDto;
+import com.rudy.ryanto.game.product.entity.GameProduct;
 import com.rudy.ryanto.game.product.service.GameProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

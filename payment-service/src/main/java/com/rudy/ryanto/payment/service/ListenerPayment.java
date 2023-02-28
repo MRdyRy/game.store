@@ -1,15 +1,13 @@
 package com.rudy.ryanto.payment.service;
 
-import com.rudy.ryanto.payment.Util.PaymentConstant;
-import com.rudy.ryanto.payment.domain.PaymentStatus;
-import com.rudy.ryanto.payment.domain.TransactionRequest;
-import com.rudy.ryanto.report.domain.Cart;
+import com.rudy.ryanto.payment.helper.PaymentConstant;
+import com.rudy.ryanto.payment.dto.PaymentStatus;
+import com.rudy.ryanto.payment.dto.TransactionRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -29,7 +27,7 @@ public class ListenerPayment {
     @Value("${transaction.management.endpoint:/history")
     private String endpointHistory;
 
-    @KafkaListener(topics = "payment-submission")
+    @KafkaListener(topics = "payment-submission", groupId = "game")
     public void listenerPayment(TransactionRequest transactionRequest){
         try{
             String url = hostTransactionUrl.concat(endpointHistory);

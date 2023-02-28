@@ -1,7 +1,7 @@
 package com.rudy.ryanto.user.management.service;
 
-import com.rudy.ryanto.user.management.domain.Customer;
-import com.rudy.ryanto.user.management.domain.CustomerDto;
+import com.rudy.ryanto.user.management.dto.Customer;
+import com.rudy.ryanto.user.management.dto.CustomerDto;
 
 import java.text.ParseException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.rudy.ryanto.user.management.domain;
+package com.rudy.ryanto.user.management.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

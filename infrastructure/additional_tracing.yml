@@ -14,6 +14,8 @@ services:
     environment:
       - discovery.type=single-node
     restart: always
+    networks:
+      - ${GLOBAL_NETWORK:-gamestore}
 
   zipkin:
     image: openzipkin/zipkin-slim
@@ -26,3 +28,19 @@ services:
     depends_on:
       - elasticsearch
     restart: always
+    networks:
+      - ${GLOBAL_NETWORK:-gamestore}
+
+  postgres:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./db:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ${GLOBAL_NETWORK:-gamestore}

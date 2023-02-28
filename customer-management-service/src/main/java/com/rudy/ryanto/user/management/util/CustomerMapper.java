@@ -1,7 +1,7 @@
 package com.rudy.ryanto.user.management.util;
 
-import com.rudy.ryanto.user.management.domain.Customer;
-import com.rudy.ryanto.user.management.domain.CustomerDto;
+import com.rudy.ryanto.user.management.dto.Customer;
+import com.rudy.ryanto.user.management.dto.CustomerDto;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Component;
 

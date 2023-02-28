@@ -2,7 +2,7 @@ package com.rudy.ryanto.payment.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rudy.ryanto.payment.domain.PaymentStatus;
+import com.rudy.ryanto.payment.dto.PaymentStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

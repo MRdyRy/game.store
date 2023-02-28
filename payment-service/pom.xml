@@ -9,11 +9,11 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.rudy.ryanto.payment</groupId>
+<!--    <groupId>com.rudy.ryanto.payment</groupId>-->
     <artifactId>payment-service</artifactId>
 
     <properties>
-        <springkafka.version>2.7.2</springkafka.version>
+        <springkafka.version>2.8.0</springkafka.version>
         <version.jackson>2.14.2</version.jackson>
     </properties>
 

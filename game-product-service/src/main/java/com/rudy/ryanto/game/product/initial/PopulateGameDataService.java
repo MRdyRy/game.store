@@ -1,7 +1,7 @@
 package com.rudy.ryanto.game.product.initial;
 
-import com.rudy.ryanto.game.product.domain.GameDto;
-import com.rudy.ryanto.game.product.domain.GameProduct;
+import com.rudy.ryanto.game.product.dto.GameDto;
+import com.rudy.ryanto.game.product.entity.GameProduct;
 import com.rudy.ryanto.game.product.repository.GameProductRepository;
 import com.rudy.ryanto.game.product.util.MapperGameDtoToGameProduct;
 import lombok.extern.slf4j.Slf4j;

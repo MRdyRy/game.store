@@ -1,4 +1,4 @@
-package com.rudy.ryanto.game.product.domain;
+package com.rudy.ryanto.game.product.dto;
 
 import lombok.*;
 

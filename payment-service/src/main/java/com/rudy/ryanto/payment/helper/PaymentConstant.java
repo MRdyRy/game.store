@@ -1,4 +1,4 @@
-package com.rudy.ryanto.payment.Util;
+package com.rudy.ryanto.payment.helper;
 
 public class PaymentConstant {
 

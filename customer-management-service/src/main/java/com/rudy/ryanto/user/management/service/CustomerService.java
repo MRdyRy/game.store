@@ -2,8 +2,8 @@ package com.rudy.ryanto.user.management.service;
 
 import com.rudy.ryanto.user.management.Repository.CustomerRepository;
 import com.rudy.ryanto.user.management.exception.CustomerException;
-import com.rudy.ryanto.user.management.domain.Customer;
-import com.rudy.ryanto.user.management.domain.CustomerDto;
+import com.rudy.ryanto.user.management.dto.Customer;
+import com.rudy.ryanto.user.management.dto.CustomerDto;
 import com.rudy.ryanto.user.management.util.CustomerMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.rudy.ryanto.payment.domain;
+package com.rudy.ryanto.payment.dto;
 
 import lombok.*;
 

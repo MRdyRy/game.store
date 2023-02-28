@@ -1,6 +1,5 @@
-package com.rudy.ryanto.game.product.domain;
+package com.rudy.ryanto.game.product.entity;
 
-import com.rudy.ryanto.user.management.domain.AuditTrail;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

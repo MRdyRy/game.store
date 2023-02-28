@@ -1,8 +1,8 @@
 package com.rudy.ryanto.user.management.controller;
 
 import com.rudy.ryanto.user.management.service.CustomerServiceInterface;
-import com.rudy.ryanto.user.management.domain.Customer;
-import com.rudy.ryanto.user.management.domain.CustomerDto;
+import com.rudy.ryanto.user.management.dto.Customer;
+import com.rudy.ryanto.user.management.dto.CustomerDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

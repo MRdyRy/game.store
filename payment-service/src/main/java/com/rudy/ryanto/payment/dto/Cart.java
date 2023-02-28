@@ -1,4 +1,4 @@
-package com.rudy.ryanto.report.domain;
+package com.rudy.ryanto.payment.dto;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Cart {
     private Long idCart;
     private Date datePurchase;

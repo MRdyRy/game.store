@@ -17,31 +17,24 @@ import java.util.Map;
 
 @Configuration
 public class KafkaConfig {
-    @Value("${spring.kafka.bootstrap-servers:ocalhost:19092, localhost:29092, localhost:39092}")
+    @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapAddress;
     @Value("${kafka.schema.registry.url.key:schema.registry.url}")
     private String schemaRegistryUrlKey;
-    @Value("${kafka.schema.registry.url:http://localhost:8081}")
+    @Value("${kafka.schema.registry.url}")
     private String schemaRegistryUrl;
 
-    @Value("${compression.type:snappy")
+    @Value("${compression.type")
     private String compressionType;
-    @Value("${kafka.producer.acks:all}")
+    @Value("${kafka.producer.acks}")
     private String acks;
-    @Value("${kafka.producer.batch.size:16384")
-    private String batchSize;
 
-    @Value("${kafka.producer.batch.size.boost.factor:100")
-    private String batchSizeBoost;
+    private final Integer BATCH_SIZE =16384;
 
-    @Value("${kafka.producer.linger.ms:5")
-    private String lingerMs;
-
-    @Value("${kafka.producer.rto.ms:60000")
-    private String rtoMs;
-
-    @Value("${kafka.producer.retry.count:5")
-    private String retryCount;
+    private final Integer BATCH_SIZE_BOOST=100;
+    private final Integer LINGERMS=5;
+    private final Integer RTOMS=60000;
+    private final Integer RETRY_COUNT=5;
 
 
     @Bean
@@ -69,12 +62,12 @@ public class KafkaConfig {
         props.put(schemaRegistryUrlKey, schemaRegistryUrl);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-        props.put(ProducerConfig.BATCH_SIZE_CONFIG, Integer.parseInt(batchSize) * Integer.parseInt(batchSizeBoost));
-        props.put(ProducerConfig.LINGER_MS_CONFIG, Integer.parseInt(lingerMs));
+        props.put(ProducerConfig.BATCH_SIZE_CONFIG, BATCH_SIZE* BATCH_SIZE_BOOST);
+        props.put(ProducerConfig.LINGER_MS_CONFIG, LINGERMS);
         props.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, compressionType);
         props.put(ProducerConfig.ACKS_CONFIG, acks);
-        props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, Integer.parseInt(rtoMs));
-        props.put(ProducerConfig.RETRIES_CONFIG, Integer.parseInt(retryCount));
+        props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, RTOMS);
+        props.put(ProducerConfig.RETRIES_CONFIG, RETRY_COUNT);
         return new DefaultKafkaProducerFactory<>(props);
     }
 
