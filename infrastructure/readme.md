@@ -34,3 +34,16 @@ in postgres container type this and enter :
 <p style="background:black; padding:5px">CREATE DATABASE CUSTOMER;</p>
 
 <p style="background:black; padding:5px">CREATE DATABASE GAME;</p>
+
+
+
+<p>sample zipkin monitor : </p>
+<img style=' display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;' src="/infrastructure/doc/zipkin.png" alt="list container running"/>
+
+<img style=' display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;' src="/infrastructure/doc/zipkin detail.png" alt="list container running"/>
