@@ -1,6 +1,6 @@
 package com.rudy.ryanto.customer.login.service;
 
-import com.rudy.ryanto.user.management.dto.CustomerDto;
+import com.rudy.ryanto.customer.login.domain.CustomerDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,8 +1,8 @@
 package com.rudy.ryanto.customer.login.controller;
 
 import com.rudy.ryanto.customer.login.domain.CommonResponse;
+import com.rudy.ryanto.customer.login.domain.CustomerDto;
 import com.rudy.ryanto.customer.login.service.CustomerLoginService;
-import com.rudy.ryanto.user.management.dto.CustomerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
