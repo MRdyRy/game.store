@@ -41,9 +41,15 @@ in postgres container type this and enter :
 <img style=' display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 100%;' src="/infrastructure/doc/zipkin.png" alt="list container running"/>
+  width: 100%;' src="/infrastructure/doc/zipkin.png" alt="zipkin monitor"/>
 
 <img style=' display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 100%;' src="/infrastructure/doc/zipkin detail.png" alt="list container running"/>
+  width: 100%;' src="/infrastructure/doc/zipkin detail.png" alt="zipkin monitor"/>
+  
+  <p>kafka manager</p>
+  <img style=' display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;' src="/infrastructure/doc/kafka_topic.png" alt="kafka manager"/>
