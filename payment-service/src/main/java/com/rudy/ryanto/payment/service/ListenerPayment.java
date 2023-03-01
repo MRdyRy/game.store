@@ -1,5 +1,6 @@
 package com.rudy.ryanto.payment.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rudy.ryanto.payment.helper.PaymentConstant;
 import com.rudy.ryanto.payment.dto.PaymentStatus;
 import com.rudy.ryanto.payment.dto.TransactionRequest;
@@ -27,11 +28,16 @@ public class ListenerPayment {
     @Value("${transaction.management.endpoint:/history")
     private String endpointHistory;
 
+    @Autowired
+    ObjectMapper objectMapper;
+
     @KafkaListener(topics = "payment-submission", groupId = "game")
-    public void listenerPayment(TransactionRequest transactionRequest){
+    public void listenerPayment(String message){
+        log.info("message receive : {}",message);
         try{
             String url = hostTransactionUrl.concat(endpointHistory);
             log.info("call : {}",url);
+            TransactionRequest transactionRequest = objectMapper.readValue(message,TransactionRequest.class);
             var response = restTemplate.postForEntity(url,transactionRequest,TransactionRequest.class);
             log.info("response : {}", response.getBody());
             if(response.getStatusCode().compareTo(HttpStatus.OK)==0){

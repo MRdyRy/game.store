@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
@@ -21,6 +22,7 @@ public class ReportTransactionController {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(value = "/transaction", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_PDF_VALUE)
+    @RolesAllowed("usertoko")
     public byte[] generatePdf(@RequestBody Cart cart, HttpServletResponse httpServletResponse){
         log.info("genereate transaction report : {}",cart);
         return reportService.generatePdf(cart,httpServletResponse);
