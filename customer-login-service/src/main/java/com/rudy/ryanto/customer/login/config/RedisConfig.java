@@ -13,7 +13,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 public class RedisConfig {
 
-    @Value("${redis.host:localhost}")
+    @Value("${redis.host:cache}")
     private String host;
     @Value("${redis.password:password}")
     private String password;

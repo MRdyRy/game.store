@@ -4,7 +4,6 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<modules>
-		<module>cloud-config</module>
 		<module>report-service</module>
 		<module>customer-management-service</module>
 		<module>payment-service</module>

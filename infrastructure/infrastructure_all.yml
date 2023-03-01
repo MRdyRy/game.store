@@ -14,24 +14,24 @@ services:
     networks:
       - ${GLOBAL_NETWORK:-gamestore}
 
-  keycloak:
-    depends_on:
-      - postgres
-    container_name: keycloak
-    environment:
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: admin
-      DB_VENDOR: postgres
-      DB_ADDR: postgres
-      DB_DATABASE: postgres
-      DB_USER: ${POSTGRES_USER_CREDENTIAL}
-      DB_PASSWORD: ${POSTGRES_PASSWORD_CREDENTIAL}
-    image: jboss/keycloak:${KEYCLOACK_VERSION}
-    ports:
-      - "28080:8080"
-    restart: on-failure
-    networks:
-      - ${GLOBAL_NETWORK:-gamestore}
+  # keycloak:
+  #   depends_on:
+  #     - postgres
+  #   container_name: keycloak
+  #   environment:
+  #     KEYCLOAK_USER: admin
+  #     KEYCLOAK_PASSWORD: admin
+  #     DB_VENDOR: postgres
+  #     DB_ADDR: postgres
+  #     DB_DATABASE: postgres
+  #     DB_USER: ${POSTGRES_USER_CREDENTIAL}
+  #     DB_PASSWORD: ${POSTGRES_PASSWORD_CREDENTIAL}
+  #   image: jboss/keycloak:${KEYCLOACK_VERSION}
+  #   ports:
+  #     - "28080:8080"
+  #   restart: on-failure
+  #   networks:
+  #     - ${GLOBAL_NETWORK:-gamestore}
 
   cache:
     container_name: redis_gamestore
@@ -43,5 +43,173 @@ services:
     ports:
       - "6379:6379"
     restart: always
+    networks:
+      - ${GLOBAL_NETWORK:-gamestore}
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:${KAFKA_VERSION}
+    hostname: schema-registry
+    depends_on:
+      - kafka-broker-1
+      - kafka-broker-2
+      - kafka-broker-3
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
+      SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka-broker-2:9092,LISTENER_LOCAL://localhost:29092
+      SCHEMA_REGISTRY_DEBUG: 'true'
+    networks:
+      - ${GLOBAL_NETWORK:-kafka}
+  kafka-broker-1:
+    image: confluentinc/cp-kafka:${KAFKA_VERSION}
+    hostname: kafka-broker-1
+    ports:
+      - "19092:19092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-1:9092,LISTENER_LOCAL://localhost:19092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,LISTENER_LOCAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_COMPRESSION_TYPE: producer
+    volumes:
+      - "./volumes/kafka/broker-1:/var/lib/kafka/data"
+    networks:
+      - ${GLOBAL_NETWORK:-kafka}
+  kafka-broker-2:
+    image: confluentinc/cp-kafka:${KAFKA_VERSION}
+    hostname: kafka-broker-2
+    ports:
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-2:9092,LISTENER_LOCAL://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,LISTENER_LOCAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_COMPRESSION_TYPE: producer
+    volumes:
+      - "./volumes/kafka/broker-2:/var/lib/kafka/data"
+    networks:
+      - ${GLOBAL_NETWORK:-kafka}
+  kafka-broker-3:
+    image: confluentinc/cp-kafka:${KAFKA_VERSION}
+    hostname: kafka-broker-3
+    ports:
+      - "39092:39092"
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-3:9092,LISTENER_LOCAL://localhost:39092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,LISTENER_LOCAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_COMPRESSION_TYPE: producer
+    volumes:
+      - "./volumes/kafka/broker-3:/var/lib/kafka/data"
+    networks:
+      - ${GLOBAL_NETWORK:-kafka}
+
+  report-service:
+    container_name: report-service
+    build:
+      context: ../report-service
+      dockerfile: Dockerfile
+    image: report-service:latest
+    ports:
+      - 9050:9050
+    networks:
+      - ${GLOBAL_NETWORK:-gamestore}
+
+  login-service:
+    container_name: login-service
+    depends_on:
+      - cache
+    links:
+      - cache
+    build:
+      context: ../customer-login-service
+      dockerfile: Dockerfile
+    image: customer-login-service:latest
+    ports:
+      - 9080:9080
+    networks:
+      - ${GLOBAL_NETWORK:-gamestore}
+
+  customer-management-service:
+    container_name: customer-management-service
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/customer
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    build:
+      context: ../customer-management-service
+      dockerfile: Dockerfile
+    image: customer-management-service:latest
+    ports:
+      - 9070:9070
+    networks:
+      - ${GLOBAL_NETWORK:-gamestore}
+
+  game-product-service:
+    container_name: game-product-service
+    depends_on:
+      - kafka-broker-1
+      - kafka-broker-2
+      - kafka-broker-3
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/customer
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    links:
+      - kafka-broker-1
+      - kafka-broker-2
+      - kafka-broker-3
+    build:
+      context: ../game-product-service
+      dockerfile: Dockerfile
+    image: game-product-service:latest
+    ports:
+      - 9010:9010
+    networks:
+      - ${GLOBAL_NETWORK:-gamestore}
+
+  game-purchase-service:
+    container_name: game-purchase-service
+    build:
+      context: ../game-purchase-service
+      dockerfile: Dockerfile
+    image: game-purchase-service:latest
+    ports:
+      - 9090:9090
+    networks:
+      - ${GLOBAL_NETWORK:-gamestore}
+
+  payment-service:
+    container_name: payment-service
+    depends_on:
+      - kafka-broker-1
+      - kafka-broker-2
+      - kafka-broker-3
+    links:
+      - kafka-broker-1
+      - kafka-broker-2
+      - kafka-broker-3
+    build:
+      context: ../payment-service
+      dockerfile: Dockerfile
+    image: payment-service:latest
+    ports:
+      - 9060:9060
     networks:
       - ${GLOBAL_NETWORK:-gamestore}
