@@ -17,12 +17,10 @@ public class RedisConfig {
     private String host;
     @Value("${redis.password:password}")
     private String password;
-    @Value("${redis.port:6379")
-    private int port;
 
     @Bean
     public RedisConnectionFactory redisConnectionFactory(){
-        RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration(host,port);
+        RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration(host,6379);
         redisConfig.setPassword(password);
         return new LettuceConnectionFactory(redisConfig);
     }

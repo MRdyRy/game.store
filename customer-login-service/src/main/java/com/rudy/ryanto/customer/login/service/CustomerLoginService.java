@@ -20,7 +20,7 @@ public class CustomerLoginService {
     @Autowired
     RestTemplate restTemplate;
 
-    @Value("${customer.management.host:localhost:9070/api/customer}")
+    @Value("${customer.management.host:customer-management-service:9070/api/customer}")
     private String customerHostUrl;
     @Value("${signup.endpoint:/save}")
     private String createCustomerEndpoint;

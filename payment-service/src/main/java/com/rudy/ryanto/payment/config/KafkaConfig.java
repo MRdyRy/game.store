@@ -16,13 +16,12 @@ import java.util.Map;
 
 @Configuration
 public class KafkaConfig {
-    @Value("${spring.kafka.bootstrap-servers}")
+    @Value("${spring.kafka.bootstrap.servers.list:kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092}")
     private String bootstrapAddress;
     @Value("${kafka.schema.registry.url.key:schema.registry.url}")
     private String schemaRegistryUrlKey;
-    @Value("${kafka.schema.registry.url}")
+    @Value("${kafka.schema.registry.url:schema-registry:8081}")
     private String schemaRegistryUrl;
-
     @Value("${compression.type")
     private String compressionType;
     @Value("${kafka.producer.acks}")
@@ -32,7 +31,7 @@ public class KafkaConfig {
 
     private final Integer BATCH_SIZE_BOOST=100;
     private final Integer LINGERMS=5;
-    private final Integer RTOMS=60000;
+    private final Integer RTOMS=600000;
     private final Integer RETRY_COUNT=5;
 
 

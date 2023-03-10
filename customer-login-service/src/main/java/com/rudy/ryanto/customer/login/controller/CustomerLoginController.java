@@ -30,7 +30,7 @@ public class CustomerLoginController {
 
     @PostMapping(value = "/v1/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CommonResponse> login(@RequestBody CustomerDto customerDto) {
-        var response = customerLoginService.createNewUser(customerDto);
+        var response = customerLoginService.login(customerDto);
         return ResponseEntity.ok(CommonResponse.builder()
                 .statusCode(String.valueOf(response.getStatusCode().value()))
                 .desc(response.getStatusCode().getReasonPhrase())

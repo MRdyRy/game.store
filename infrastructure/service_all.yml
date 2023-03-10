@@ -1,62 +1,13 @@
 version: '3.8'
 services:
-  report-service:
-    container_name: report-service
-    build:
-      context: ../report-service
-      dockerfile: Dockerfile
-    image: report-service:latest
-    ports:
-      - 9050:9050
-    networks:
-      - ${GLOBAL_NETWORK:-gamestore}
-
-  login-service:
-    container_name: login-service
-    build:
-      context: ../customer-login-service
-      dockerfile: Dockerfile
-    image: customer-login-service:latest
-    ports:
-      - 9080:9080
-    networks:
-      - ${GLOBAL_NETWORK:-gamestore}
-
-  customer-management-service:
-    container_name: customer-management-service
-    build:
-      context: ../customer-management-service
-      dockerfile: Dockerfile
-    image: customer-management-service:latest
-    ports:
-      - 9070:9070
-    networks:
-      - ${GLOBAL_NETWORK:-gamestore}
-
-  game-product-service:
-    container_name: game-product-service
-    build:
-      context: ../game-product-service
-      dockerfile: Dockerfile
-    image: game-product-service:latest
-    ports:
-      - 9010:9010
-    networks:
-      - ${GLOBAL_NETWORK:-gamestore}
-
-  game-purchase-service:
-    container_name: game-purchase-service
-    build:
-      context: ../game-purchase-service
-      dockerfile: Dockerfile
-    image: game-purchase-service:latest
-    ports:
-      - 9090:9090
-    networks:
-      - ${GLOBAL_NETWORK:-gamestore}
-
   payment-service:
     container_name: payment-service
+    environment:
+      - spring_kafka_bootstrap_servers_list=kafka-broker-1:19092, kafka-broker-2:29092, kafka-broker-3:39092
+      - kafka_schema_registry_url_key=schema.registry.url
+      - kafka_schema_registry_url=http://schema-registry:8081
+      - compression_type=snappy
+      - kafka_producer_acks=all
     build:
       context: ../payment-service
       dockerfile: Dockerfile
